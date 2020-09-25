@@ -185,7 +185,6 @@ new Vue({
         this.alertSuccess = true;
         this.msgText = "Você usou " + (3 - this.cure) + " cura(s), restam " + (this.cure) + "!";
         setTimeout(()=>{this.activeClass = false,this.alertSuccess = false, this.msgText = ""},3000);
-        
       } 
     },
     resetGame() {
