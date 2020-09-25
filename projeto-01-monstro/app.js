@@ -52,7 +52,7 @@ new Vue({
         +
         '<div class="btn btn-sm btn-danger w-100 mb-2">Monstro atingiu o JOGADOR com '+ playerAttack +'</div>';
         this.$refs.logs.style.display = 'block';
-        this.$refs.logs.firstElementChild.innerHTML += logPlayer;
+        this.$refs.logs.firstElementChild.innerHTML = logPlayer + this.$refs.logs.firstElementChild.innerHTML;
     },
     btnSpecialAttack(){
       const monsterSpecialAttack = getRandomInt(30);
@@ -74,7 +74,7 @@ new Vue({
         +
         '<div class="btn btn-sm btn-danger w-100 mb-2">Monstro atingiu o JOJADOR com '+ playerSpecialAttack +'</div>';
         this.$refs.logs.style.display = 'block';
-        this.$refs.logs.firstElementChild.innerHTML += logPlayer;
+        this.$refs.logs.firstElementChild.innerHTML = logPlayer + this.$refs.logs.firstElementChild.innerHTML;
       } 
 
       if(this.playerLife > 60) {
@@ -84,13 +84,12 @@ new Vue({
         setTimeout(()=>{this.activeClass = false,this.alertDanger = false, this.msgText = ""},3000);
       } 
 
-      if(this.cure >= 1 && this.monsterLife < 60) {
-        this.cure--;
+      if(this.attack >= 1 && this.monsterLife < 60) {
+        this.attack--;
         this.activeClass = true;
         this.alertSuccess = true;
-        this.msgText = "Você usou " + (3 - this.cure) + " Ataque(s) Especial(ais), restam " + (this.cure) + "!";
+        this.msgText = "Você usou " + (3 - this.attack) + " Ataque(s) Especial(ais), restam " + (this.attack) + "!";
         setTimeout(()=>{this.activeClass = false,this.alertSuccess = false, this.msgText = ""},3000);
-        
       } 
       
     },
