@@ -64,24 +64,24 @@
       </div>
       <div class="card shadow mb-4 buttons">
         <div class="card-body text-center">
-          <button class="btn mb-sm-2 w-sm-100 btn-success w-100" v-if="!actionsVisible" @click="resetGame">
+          <button class="btn mb-sm-2 w-sm-100 btn-success d-block" v-if="!actionsVisible" @click="resetGame">
             <span class="fa fa-play"></span>&nbsp;JOGAR
           </button>
           <template v-if="actionsVisible">
-            <button class="btn mb-sm-2 w-sm-100 btn-danger" @click="btnAttack">
+            <button class="btn mb-sm-2 w-sm-100 btn-danger d-sm-block" @click="btnAttack">
               <span class="fa fa-bomb"></span>&nbsp;
               ATAQUE
             </button>
-            <button class="btn mb-sm-2 w-sm-100 btn-warning" @click="btnSpecialAttack">
+            <button class="btn mb-sm-2 w-sm-100 btn-warning d-sm-block" @click="btnSpecialAttack">
               <span class="fa fa-magic"></span>&nbsp;
               ATAQUE ESPECIAL 
               <span class="badge badge-success">{{attack}}</span>
             </button>
-            <button class="btn mb-sm-2 w-sm-100 btn-success"  @click="btnCure">
+            <button class="btn mb-sm-2 w-sm-100 btn-success d-sm-block"  @click="btnCure">
               <span class="fa fa-medkit"></span>&nbsp;&nbsp;
               CURAR <span class="badge badge-warning">{{cure}}</span>
             </button>
-            <button class="btn mb-sm-2 w-sm-100 btn-secondary"  @click="resetGame">
+            <button class="btn mb-sm-2 w-sm-100 btn-secondary d-sm-block"  @click="resetGame">
               <span class="fa fa-sign-out"></span>&nbsp;
               DESISTIR
             </button>
