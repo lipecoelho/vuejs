@@ -3,6 +3,8 @@ new Vue({
   data: {
     playerLife: 100,
     monsterLife: 100,
+    playerScore: 0,
+    monsterScore: 0,
     colorLife: "green",
     colorDead: "red",
     resultVisible: false,
@@ -34,11 +36,19 @@ new Vue({
     btnAttack() {
       const monsterAttack = getRandomInt(12);
       const playerAttack = getRandomInt(15);
+
       this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - playerAttack);//
       this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - monsterAttack);//
+
       console.log(this.monsterLife,this.playerLife);
       if(this.playerLife <= 0 || this.monsterLife <= 0){
-        if(this.playerLife < 0 && this.monsterLife < 0) {
+        if(this.playerLife <= 0) {
+          this.monsterScore++;
+        }
+        if(this.monsterLife <= 0) {
+          this.playerScore++;
+        }
+        if(this.playerLife <= 0 && this.monsterLife <= 0) {
           this.ko = true
         }
         this.playerLife = this.playerLife <= 0 ? 0 : this.playerLife;
@@ -48,9 +58,9 @@ new Vue({
         this.resultVisible = true 
       }
       var logPlayer = 
-        '<div class="btn btn-sm btn-primary w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterAttack +'</div>'
+        '<div class="my-2"><div class="btn btn-sm btn-primary w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterAttack +'</div>'
         +
-        '<div class="btn btn-sm btn-danger w-100 mb-2">Monstro atingiu o JOGADOR com '+ playerAttack +'</div>';
+        '<div class="btn btn-sm btn-danger w-100 mb-0">Monstro atingiu o JOGADOR com '+ playerAttack +'</div></div>';
         this.$refs.logs.style.display = 'block';
         this.$refs.logs.firstElementChild.innerHTML = logPlayer + this.$refs.logs.firstElementChild.innerHTML;
     },
@@ -70,9 +80,9 @@ new Vue({
         this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - monsterSpecialAttack);
         this.attack--;
         var logPlayer = 
-        '<div class="btn btn-sm btn-primary w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterSpecialAttack +'</div>'
+        '<div class="my-2"><div class="btn btn-sm btn-primary w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterSpecialAttack +'</div>'
         +
-        '<div class="btn btn-sm btn-danger w-100 mb-2">Monstro atingiu o JOJADOR com '+ playerSpecialAttack +'</div>';
+        '<div class="btn btn-sm btn-danger w-100 mb-2">Monstro atingiu o JOGADOR com '+ playerSpecialAttack +'</div></div>';
         this.$refs.logs.style.display = 'block';
         this.$refs.logs.firstElementChild.innerHTML = logPlayer + this.$refs.logs.firstElementChild.innerHTML;
       } 
@@ -85,7 +95,6 @@ new Vue({
       } 
 
       if(this.attack >= 1 && this.monsterLife < 60) {
-        this.attack--;
         this.activeClass = true;
         this.alertSuccess = true;
         this.msgText = "Você usou " + (3 - this.attack) + " Ataque(s) Especial(ais), restam " + (this.attack) + "!";

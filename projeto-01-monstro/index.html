@@ -18,6 +18,15 @@
         {{msgText}}
       </div>
       <div class="card shadow mb-4 scores">
+        <div class="card-body text-center">
+          <h1>
+            {{playerScore}}
+            <span class="fa fa-trophy fa-lg fa-2x mx-3"></span>
+            {{monsterScore}}
+          </h1>
+        </div>
+      </div>
+      <div class="card shadow mb-4 scores">
         <div class="card-body">
 
           <div class="row text-center">
@@ -45,10 +54,10 @@
           <div v-if="monsterLife <= 0" class="alert alert-success mb-0">
             Você venceu o MONSTRO!
           </div>
-          <div v-if="playerLife <= 0" class="alert alert-danger mb-0">
+          <div v-else class="alert alert-danger mb-0">
             Você perdeu para o MONSTRO!
           </div>
-          <div v-if="ko" class="alert alert-info mb-0">
+          <div v-show="ko" class="alert alert-info mb-0">
             Empate
           </div>
         </div>
