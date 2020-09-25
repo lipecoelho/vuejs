@@ -143,7 +143,7 @@ new Vue({
 
         this.attack--;
         var logPlayer = 
-        '<div class="my-2 d-flex"><div class="btn btn-sm btn-light w-100 mb-2 rounded-right-0">Jogador atingiu o MONSTRO com '+ monsterSpecialAttack +'</div>'
+        '<div class="my-2 d-flex shadow-md shadow-sm"><div class="btn btn-sm btn-light w-100 mb-2 rounded-right-0">Jogador atingiu o MONSTRO com '+ monsterSpecialAttack +'</div>'
         +
         '<div class="btn btn-sm btn-light w-100 mb-2 rounded-left-0">Monstro atingiu o JOGADOR com '+ playerSpecialAttack +'</div></div>';
         this.$refs.logs.style.display = 'block';
