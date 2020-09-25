@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>VueJs Intro</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<!-- development version, includes helpful console warnings -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="container" id="app">
+		<div class="jumbotron mt-4">
+			<h1 class="display-4">{{ contador }}</h1>
+			<h1 class="display-4">{{ contador2 }}</h1>
+			<h1 class="display-4">{{ resultado }}</h1>
+		</div>
+		<div >
+			<button class="btn btn-primary" v-on:click="aumentar">Aumentar</button>
+			<button class="btn btn-primary" v-on:click="diminuir">Diminuir</button>
+			<hr />
+			<button class="btn btn-primary" v-on:click="contador2++">Aumentar 2</button>
+			<input type="text" id="inp" class="form-control" />
+		</div>
+	</div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        contador: 0,
+        contador2: 0,
+				//resultado: ''
+      },
+			computed: {
+				resultado() {
+					console.log('Resultado chamado')
+					return this.contador >= 5 ? 'Maior ou igual a 5' : 'Menor que 5'
+				}
+			},
+			watch: {
+				contador(n, o) {
+					setTimeout(()=>{
+						this.contador = 0
+					},2000)
+				}
+			},
+      methods: {
+        aumentar() {
+          this.contador++
+        },
+        diminuir() {
+          this.contador--
+        },
+				// resultado() {
+				// 	console.log('Resultado chamado')
+				// 	return this.contador >= 5 ? 'Maior ou igual a 5' : 'Menor que 5'
+				// }
+      }
+    });
+  </script>
+</body>
+</html> 

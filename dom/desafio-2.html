@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>VueJs Intro</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<!-- development version, includes helpful console warnings -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div id="desafio" class="container p-5 border rounded mt-5">
+    <!-- 1) Exiba um alert quando o botão for clicado -->
+    <div>
+        <button class="btn btn-primary" @click="exibirAlerta">Exibir Alerta</button>
+    </div>
+    <br>
+    <!-- 2) Escute o evento "keyup" e armazene o valor na propriedade
+        data (dica: event.target.value) -->
+    <div>
+        <input type="text" v-on:keyup="exibirValor" class="form-control">
+        <p>{{ valor }}</p>
+    </div>
+    
+    <!-- 3) Ajuste o exemplo 2 para disparar o evento "keydown" somente
+        quando a tecla for ENTER -->
+    <div>
+        <input type="text" v-on:keyup.enter="valor = $event.target.value" class="form-control">
+        <p>{{ valor }}</p>
+    </div>
+  </div>
+
+    <script>
+		new Vue({
+			el:'#desafio',
+			data: {
+				valor: 0,
+			},
+			methods: {
+				exibirValor(event) {
+					this.valor = event.target.value;
+				},
+				exibirAlerta(event) {
+					alert('Foi clicado!')
+				}
+			}
+		}); 
+	</script>
+</body>
+</html> 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>VueJs Intro</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<!-- development version, includes helpful console warnings -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    .caixas {
+      display: flex;
+      justify-content: space-around;
+    }
+    .demo {
+      width: 100px;
+      height: 100px;
+      background-color: gray;
+    }
+    .c1 {background-color: red;}
+    .c2 {background-color:blue;}
+    .c3 {background-color:orange;}
+    .c4 {background-color:violet;}
+    .girar {
+      transform: rotate(45deg);
+      transition: all .3s ease;
+    }
+  </style>
+</head>
+<body>
+	<div class="container" id="app">
+		<div class="jumbotron mt-4 caixas" >
+			<div class="demo" :class="estilo1" @click="aplicarC1 = !aplicarC1"></div>
+			<div class="demo"></div>
+			<div class="demo" :class="[classeCSS, {girar: aplicarGirar}]"></div>
+    </div>
+    <hr>
+    <input type="text" v-model="classeCSS" />
+	</div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        aplicarC1: false,
+        classeCSS: 'c1',
+        aplicarGirar: true
+      },
+      computed: {
+        estilo1() {
+          return {
+            c1: this.aplicarC1,
+            c2: !this.aplicarC1
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html> 

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>VueJs - Matador de Monstros</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<!-- development version, includes helpful console warnings -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container p-5">
+    <div id="app">
+      <div class="alert alert-top" :class="{active: activeClass, 'alert-danger' : alertDanger, 'alert-success' : alertSuccess}">
+        {{msgText}}
+      </div>
+      <div class="card shadow mb-4 scores">
+        <div class="card-body">
+
+          <div class="row text-center">
+            <div class="col-6">
+              <h3>Jogador</h3>
+              <div class="progress">
+                <div class="progress-bar" :style="[progressPlayer]" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              {{playerLife}}%
+            </div>  
+            <div class="col-6">
+              <h3>Monstro</h3>
+              <div class="progress">
+                <div class="progress-bar"  :style="[progressMonster]" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              {{monsterLife}}%
+            </div>  
+          </div>
+
+        </div>
+      </div>
+      
+      <div class="card shadow mb-4 result"  v-show="resultVisible">
+        <div class="card-body">
+          <div v-if="monsterLife <= 0" class="alert alert-success mb-0">
+            Você venceu o MONSTRO!
+          </div>
+          <div v-if="playerLife <= 0" class="alert alert-danger mb-0">
+            Você perdeu para o MONSTRO!
+          </div>
+          <div v-if="ko" class="alert alert-info mb-0">
+            Empate
+          </div>
+        </div>
+      </div>
+      <div class="card shadow mb-4 buttons">
+        <div class="card-body text-center">
+          <button class="btn btn-primary" v-if="!actionsVisible" @click="resetGame">
+            <span class="fa fa-play"></span>&nbsp;JOGAR
+          </button>
+          <template v-if="actionsVisible">
+            <button class="btn btn-danger" @click="btnAttack">
+              <span class="fa fa-bomb"></span>&nbsp;
+              ATAQUE
+            </button>
+            <button class="btn btn-warning" @click="btnSpecialAttack">
+              <span class="fa fa-magic"></span>&nbsp;
+              ATAQUE ESPECIAL 
+              <span class="badge badge-success">{{attack}}</span>
+            </button>
+            <button class="btn btn-success"  @click="btnCure">
+              <span class="fa fa-medkit"></span>&nbsp;&nbsp;
+              CURAR <span class="badge badge-warning">{{cure}}</span>
+            </button>
+            <button class="btn btn-secondary"  @click="resetGame">
+              <span class="fa fa-sign-out"></span>&nbsp;
+              DESISTIR
+            </button>
+          </template>
+        </div>
+      </div>
+      <div class="card shadow mb-4 logs">
+        <div class="card-body">
+          asda
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

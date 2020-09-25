@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Condicionais & Listas</title>
+</head>
+<body>
+  <div class="container" id="app">
+    <p v-if="logado">Usuário logado: {{ nome }}</p>
+    <p v-else>Nenhum usuário logado</p>
+    <button @click="logado = !logado" class="btn btn-primary">
+      {{logado ? 'Sair' : 'Entrar'}}
+    </button>
+  </div>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        nome: 'Felipe',
+        logado: false
+      }
+    });
+  </script>
+</body>
+</html>

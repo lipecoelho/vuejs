@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>VueJs Intro</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<!-- development version, includes helpful console warnings -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="container" id="app">
+		<div class="jumbotron mt-4">
+			<p v-on:mousemove="atualizarXY">
+				MouseMove: {{x}} e {{y}}
+				<span v-on:mousemove.stop="">PARAR</span>
+			</p>
+			<a v-on:click.prevent="" href="http://google.com">Google</a>
+		</div>
+	</div>
+
+    <script>
+		new Vue({
+			el:'#app',
+			data: {
+				x: 0,
+				y: 0
+			},
+			methods: {
+				// stop() {
+				// 	event.preventDefault();
+				// },
+				atualizarXY(event) {
+					console.log(event.clientX)
+					this.x = event.clientX,
+					this.y = event.clientY
+				}
+			}
+		}); 
+	</script>
+</body>
+</html> 
