@@ -120,7 +120,7 @@ new Vue({
         }
   
         if(this.monsterLife <= 0 && this.playerLife >= 0){
-          this.monsterScore++;
+          this.playerScore++;
           this.playerWinner = true;
         }
   
