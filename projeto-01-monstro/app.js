@@ -32,8 +32,10 @@ new Vue({
   },
   methods: {
     btnAttack() {
-      this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - getRandomInt(15));//
-      this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - getRandomInt(12));//
+      const monsterAttack = getRandomInt(12);
+      const playerAttack = getRandomInt(15);
+      this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - playerAttack);//
+      this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - monsterAttack);//
       console.log(this.monsterLife,this.playerLife);
       if(this.playerLife <= 0 || this.monsterLife <= 0){
         if(this.playerLife < 0 && this.monsterLife < 0) {
@@ -45,20 +47,34 @@ new Vue({
         this.actionsVisible = false;
         this.resultVisible = true 
       }
+      var logPlayer = 
+        '<div class="btn btn-sm btn-primary w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterAttack +'</div>'
+        +
+        '<div class="btn btn-sm btn-danger w-100 mb-2">Monstro atingiu o JOGADOR com '+ playerAttack +'</div>';
+        this.$refs.logs.style.display = 'block';
+        this.$refs.logs.firstElementChild.innerHTML += logPlayer;
     },
     btnSpecialAttack(){
+      const monsterSpecialAttack = getRandomInt(30);
+      const playerSpecialAttack = getRandomInt(15);
+
       if(this.attack <= 0) {
-        this.activeClass = true
-        this.alertDanger = true
+        this.activeClass = true;
+        this.alertDanger = true;
         this.msgText = "Seus ATAQUES ESPECIAIS esgotaram!"
         setTimeout(()=>{this.activeClass = false,this.alertDanger = false, this.msgText = ""},3000);
       }
 
       if(this.attack > 0 && this.playerLife < 60) {
-        this.playerLife =  this.playerLife <= 0 ? 0 :( this.playerLife - getRandomInt(15));
-        this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - getRandomInt(30));
-        this.attack--
-        console.log(this.cure)
+        this.playerLife =  this.playerLife <= 0 ? 0 :( this.playerLife - playerSpecialAttack);
+        this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - monsterSpecialAttack);
+        this.attack--;
+        var logPlayer = 
+        '<div class="btn btn-sm btn-primary w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterSpecialAttack +'</div>'
+        +
+        '<div class="btn btn-sm btn-danger w-100 mb-2">Monstro atingiu o JOJADOR com '+ playerSpecialAttack +'</div>';
+        this.$refs.logs.style.display = 'block';
+        this.$refs.logs.firstElementChild.innerHTML += logPlayer;
       } 
 
       if(this.playerLife > 60) {
@@ -66,6 +82,14 @@ new Vue({
         this.alertDanger = true
         this.msgText = "Você só pode usar o ATAQUE ESPECIAL com 60% ou menos de vida!"
         setTimeout(()=>{this.activeClass = false,this.alertDanger = false, this.msgText = ""},3000);
+      } 
+
+      if(this.cure >= 1 && this.monsterLife < 60) {
+        this.cure--;
+        this.activeClass = true;
+        this.alertSuccess = true;
+        this.msgText = "Você usou " + (3 - this.cure) + " Ataque(s) Especial(ais), restam " + (this.cure) + "!";
+        setTimeout(()=>{this.activeClass = false,this.alertSuccess = false, this.msgText = ""},3000);
         
       } 
       
@@ -101,11 +125,13 @@ new Vue({
       this.monsterLife = 100, 
       this.resultVisible = false,
       this.cure = 3,
-      this.attack = 3
-    }   
+      this.attack = 3;
+      this.$refs.logs.style.display = "none"
+      this.$refs.logs.firstElementChild.innerHTML = ""
+    },
   },
   watch: {
-
+    
   }
 });
 
