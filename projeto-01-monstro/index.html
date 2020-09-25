@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container p-5">
+  <div class="container pt-5">
     <div id="app">
       <div class="alert alert-top" :class="{active: activeClass, 'alert-danger' : alertDanger, 'alert-success' : alertSuccess}">
         {{msgText}}
@@ -64,24 +64,24 @@
       </div>
       <div class="card shadow mb-4 buttons">
         <div class="card-body text-center">
-          <button class="btn btn-success w-100" v-if="!actionsVisible" @click="resetGame">
+          <button class="btn mb-sm-2 w-sm-100 btn-success w-100" v-if="!actionsVisible" @click="resetGame">
             <span class="fa fa-play"></span>&nbsp;JOGAR
           </button>
           <template v-if="actionsVisible">
-            <button class="btn btn-danger" @click="btnAttack">
+            <button class="btn mb-sm-2 w-sm-100 btn-danger" @click="btnAttack">
               <span class="fa fa-bomb"></span>&nbsp;
               ATAQUE
             </button>
-            <button class="btn btn-warning" @click="btnSpecialAttack">
+            <button class="btn mb-sm-2 w-sm-100 btn-warning" @click="btnSpecialAttack">
               <span class="fa fa-magic"></span>&nbsp;
               ATAQUE ESPECIAL 
               <span class="badge badge-success">{{attack}}</span>
             </button>
-            <button class="btn btn-success"  @click="btnCure">
+            <button class="btn mb-sm-2 w-sm-100 btn-success"  @click="btnCure">
               <span class="fa fa-medkit"></span>&nbsp;&nbsp;
               CURAR <span class="badge badge-warning">{{cure}}</span>
             </button>
-            <button class="btn btn-secondary"  @click="resetGame">
+            <button class="btn mb-sm-2 w-sm-100 btn-secondary"  @click="resetGame">
               <span class="fa fa-sign-out"></span>&nbsp;
               DESISTIR
             </button>

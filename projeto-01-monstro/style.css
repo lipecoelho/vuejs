@@ -4,7 +4,9 @@
   transition: all .3s ease;
   z-index: 9999;
   width: 100%;
-  max-width: 1044px;
+  left: 0;
+  text-align: center;
+  /* max-width: 1044px; */
 }
 
 .alert-top.active {
