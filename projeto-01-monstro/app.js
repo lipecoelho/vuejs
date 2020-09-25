@@ -9,7 +9,8 @@ new Vue({
     colorDead: "red",
     resultVisible: false,
     actionsVisible: false,
-    winner: "",
+    playerWinner: false,
+    monsterWinner: false,
     ko: false,
     cure: 3,
     attack: 3,
@@ -39,28 +40,62 @@ new Vue({
 
       this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - playerAttack);//
       this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - monsterAttack);//
-
-      console.log(this.monsterLife,this.playerLife);
-      if(this.playerLife <= 0 || this.monsterLife <= 0){
-        if(this.playerLife <= 0) {
-          this.monsterScore++;
-        }
-        if(this.monsterLife <= 0) {
-          this.playerScore++;
-        }
-        if(this.playerLife <= 0 && this.monsterLife <= 0) {
-          this.ko = true
-        }
-        this.playerLife = this.playerLife <= 0 ? 0 : this.playerLife;
-        this.monsterLife = this.monsterLife <= 0 ? 0 : this.monsterLife;
-        
-        this.actionsVisible = false;
-        this.resultVisible = true 
+      // this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - 98);//
+      // this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - 98);//
+      if(this.playerLife <= 0 && this.monsterLife >= 0){
+        this.monsterScore++;
+        this.monsterWinner = true;
       }
+
+      if(this.monsterLife <= 0 && this.playerLife >= 0){
+        this.monsterScore++;
+        this.playerWinner = true;
+      }
+
+      if(this.monsterLife <= 0 || this.playerLife <= 0){
+        this.actionsVisible = false;
+        this.resultVisible = true;
+        this.playerLife = this.playerLife <= 0 ? 0 : this.playerLife;
+        this.monsterLife = this.monsterLife <= 0 ? 0 : this.monsterLife; 
+      }
+
+      if(this.playerLife <= 0 && this.monsterLife <= 0) {
+        this.ko = true;
+        this.monsterScore++;
+        this.playerScore++;
+        this.playerWinner = false; //player vence
+        this.monsterWinner = false;
+      }
+      
+      console.log(this.playerLife,this.monsterLife)
+      // if(this.playerLife <= 0 || this.monsterLife <= 0){
+        
+      //   if(this.playerLife <= 0) {
+      //     this.monsterScore++;
+      //     this.monsterWinner = true;
+      //   }
+
+      //   if(this.monsterLife <= 0) {
+      //     this.playerScore++;
+      //     this.playerWinner = true; //player vence
+      //   }
+
+      //   if(this.playerLife <= 0 && this.monsterLife <= 0) {
+      //     this.ko = true;
+      //     this.playerWinner = false; //player vence
+      //     this.monsterWinner = false;
+      //   }
+        
+      //   this.playerLife = this.playerLife <= 0 ? 0 : this.playerLife;
+      //   this.monsterLife = this.monsterLife <= 0 ? 0 : this.monsterLife;
+        
+      //   this.actionsVisible = false;
+      //   this.resultVisible = true 
+      // }
       var logPlayer = 
-        '<div class="my-2"><div class="btn btn-sm btn-primary w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterAttack +'</div>'
+        '<div class="my-2"><div class="btn btn-sm btn-light w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterAttack +'</div>'
         +
-        '<div class="btn btn-sm btn-danger w-100 mb-0">Monstro atingiu o JOGADOR com '+ playerAttack +'</div></div>';
+        '<div class="btn btn-sm btn-light w-100 mb-0">Monstro atingiu o JOGADOR com '+ playerAttack +'</div></div>';
         this.$refs.logs.style.display = 'block';
         this.$refs.logs.firstElementChild.innerHTML = logPlayer + this.$refs.logs.firstElementChild.innerHTML;
     },
@@ -78,11 +113,38 @@ new Vue({
       if(this.attack > 0 && this.playerLife < 60) {
         this.playerLife =  this.playerLife <= 0 ? 0 :( this.playerLife - playerSpecialAttack);
         this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - monsterSpecialAttack);
+
+        if(this.playerLife <= 0 && this.monsterLife >= 0){
+          this.monsterScore++;
+          this.monsterWinner = true;
+        }
+  
+        if(this.monsterLife <= 0 && this.playerLife >= 0){
+          this.monsterScore++;
+          this.playerWinner = true;
+        }
+  
+        if(this.monsterLife <= 0 || this.playerLife <= 0){
+          this.actionsVisible = false;
+          this.resultVisible = true;
+          this.playerLife = this.playerLife <= 0 ? 0 : this.playerLife;
+          this.monsterLife = this.monsterLife <= 0 ? 0 : this.monsterLife; 
+        }
+  
+        if(this.playerLife <= 0 && this.monsterLife <= 0) {
+          this.ko = true;
+          this.monsterScore++;
+          this.playerScore++;
+          this.playerWinner = false; //player vence
+          this.monsterWinner = false;
+        }
+
+
         this.attack--;
         var logPlayer = 
-        '<div class="my-2"><div class="btn btn-sm btn-primary w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterSpecialAttack +'</div>'
+        '<div class="my-2"><div class="btn btn-sm btn-light w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterSpecialAttack +'</div>'
         +
-        '<div class="btn btn-sm btn-danger w-100 mb-2">Monstro atingiu o JOGADOR com '+ playerSpecialAttack +'</div></div>';
+        '<div class="btn btn-sm btn-light w-100 mb-2">Monstro atingiu o JOGADOR com '+ playerSpecialAttack +'</div></div>';
         this.$refs.logs.style.display = 'block';
         this.$refs.logs.firstElementChild.innerHTML = logPlayer + this.$refs.logs.firstElementChild.innerHTML;
       } 
@@ -100,7 +162,6 @@ new Vue({
         this.msgText = "Você usou " + (3 - this.attack) + " Ataque(s) Especial(ais), restam " + (this.attack) + "!";
         setTimeout(()=>{this.activeClass = false,this.alertSuccess = false, this.msgText = ""},3000);
       } 
-      
     },
     btnCure(){
       if(this.cure == 0) {
