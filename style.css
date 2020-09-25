@@ -12,3 +12,10 @@
 .alert-top.active {
   top: 15px;
 }
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 768px) {
+  .w-sm-100 {
+    width: 100%;
+  }
+}
