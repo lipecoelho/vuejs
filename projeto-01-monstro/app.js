@@ -40,8 +40,9 @@ new Vue({
 
       this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - playerAttack);//
       this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - monsterAttack);//
-      // this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - 98);//
+      // this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - 100);//
       // this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - 98);//
+
       if(this.playerLife <= 0 && this.monsterLife >= 0){
         this.monsterScore++;
         this.monsterWinner = true;
@@ -67,35 +68,11 @@ new Vue({
         this.monsterWinner = false;
       }
       
-      console.log(this.playerLife,this.monsterLife)
-      // if(this.playerLife <= 0 || this.monsterLife <= 0){
-        
-      //   if(this.playerLife <= 0) {
-      //     this.monsterScore++;
-      //     this.monsterWinner = true;
-      //   }
-
-      //   if(this.monsterLife <= 0) {
-      //     this.playerScore++;
-      //     this.playerWinner = true; //player vence
-      //   }
-
-      //   if(this.playerLife <= 0 && this.monsterLife <= 0) {
-      //     this.ko = true;
-      //     this.playerWinner = false; //player vence
-      //     this.monsterWinner = false;
-      //   }
-        
-      //   this.playerLife = this.playerLife <= 0 ? 0 : this.playerLife;
-      //   this.monsterLife = this.monsterLife <= 0 ? 0 : this.monsterLife;
-        
-      //   this.actionsVisible = false;
-      //   this.resultVisible = true 
-      // }
+      console.log(this.playerWinner,this.monsterWinner)
       var logPlayer = 
-        '<div class="my-2"><div class="btn btn-sm btn-light w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterAttack +'</div>'
+        '<div class="my-2 d-flex"><div class="btn btn-sm btn-light w-100 rounded-right-0">Jogador atingiu o MONSTRO com '+ monsterAttack +'</div>'
         +
-        '<div class="btn btn-sm btn-light w-100 mb-0">Monstro atingiu o JOGADOR com '+ playerAttack +'</div></div>';
+        '<div class="btn btn-sm btn-light w-100 mb-0 rounded-left-0 ">Monstro atingiu o JOGADOR com '+ playerAttack +'</div></div>';
         this.$refs.logs.style.display = 'block';
         this.$refs.logs.firstElementChild.innerHTML = logPlayer + this.$refs.logs.firstElementChild.innerHTML;
     },
@@ -142,9 +119,9 @@ new Vue({
 
         this.attack--;
         var logPlayer = 
-        '<div class="my-2"><div class="btn btn-sm btn-light w-100 mb-2">Jogador atingiu o MONSTRO com '+ monsterSpecialAttack +'</div>'
+        '<div class="my-2 d-flex shadow-md shadow-sm"><div class="btn btn-sm btn-light w-100 mb-2 rounded-right-0">Jogador atingiu o MONSTRO com '+ monsterSpecialAttack +'</div>'
         +
-        '<div class="btn btn-sm btn-light w-100 mb-2">Monstro atingiu o JOGADOR com '+ playerSpecialAttack +'</div></div>';
+        '<div class="btn btn-sm btn-light w-100 mb-2 rounded-left-0">Monstro atingiu o JOGADOR com '+ playerSpecialAttack +'</div></div>';
         this.$refs.logs.style.display = 'block';
         this.$refs.logs.firstElementChild.innerHTML = logPlayer + this.$refs.logs.firstElementChild.innerHTML;
       } 
@@ -185,6 +162,7 @@ new Vue({
         this.alertSuccess = true;
         this.msgText = "Você usou " + (3 - this.cure) + " cura(s), restam " + (this.cure) + "!";
         setTimeout(()=>{this.activeClass = false,this.alertSuccess = false, this.msgText = ""},3000);
+        
       } 
     },
     resetGame() {
@@ -195,7 +173,9 @@ new Vue({
       this.cure = 3,
       this.attack = 3;
       this.$refs.logs.style.display = "none"
-      this.$refs.logs.firstElementChild.innerHTML = ""
+      this.$refs.logs.firstElementChild.innerHTML = "",
+      this.playerWinner = false; //player vence
+      this.monsterWinner = false;
     },
   },
   watch: {
