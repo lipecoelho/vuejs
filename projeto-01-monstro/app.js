@@ -8,7 +8,7 @@ new Vue({
     colorLife: "green",
     colorDead: "red",
     resultVisible: false,
-    actionsVisible: false,
+    runningGame: false,
     playerWinner: false,
     monsterWinner: false,
     ko: false,
@@ -20,6 +20,10 @@ new Vue({
     msgText: ""
   },
   computed: {
+    hasResult() {
+      return this.playerLife == 0 || this.monsterLife == 0;
+    },
+
     progressPlayer() {
       return {
         width: this.playerLife < 0 ? 0 : this.playerLife + '%',
@@ -34,6 +38,25 @@ new Vue({
     }
   },
   methods: {
+    startGame() {
+      this.runningGame = true,
+      this.playerLife = 100,
+      this.monsterLife = 100.
+      this.resultVisible = false,
+      this.cure = 3,
+      this.attack = 3;
+      this.$refs.logs.style.display = "none"
+      this.$refs.logs.firstElementChild.innerHTML = ""
+    },
+
+    attacking(special){
+      console.log(special, this.getRandomInt(5,10));
+    },
+    getRandomInt(min, max) {
+      const value = Math.random() * (max - min) + min;
+      return Math.round(value)
+      //return Math.floor(Math.random() * Math.floor(max));
+    },
     btnAttack() {
       const monsterAttack = getRandomInt(12);
       const playerAttack = getRandomInt(15);
@@ -45,16 +68,16 @@ new Vue({
 
       if(this.playerLife <= 0 && this.monsterLife >= 0){
         this.monsterScore++;
-        this.monsterWinner = true;
+        //this.monsterWinner = true;
       }
 
       if(this.monsterLife <= 0 && this.playerLife >= 0){
         this.playerScore++;
-        this.playerWinner = true;
+        //this.playerWinner = true;
       }
 
       if(this.monsterLife <= 0 || this.playerLife <= 0){
-        this.actionsVisible = false;
+        this.runningGame = false;
         this.resultVisible = true;
         this.playerLife = this.playerLife <= 0 ? 0 : this.playerLife;
         this.monsterLife = this.monsterLife <= 0 ? 0 : this.monsterLife; 
@@ -64,8 +87,8 @@ new Vue({
         this.ko = true;
         this.monsterScore++;
         this.playerScore++;
-        this.playerWinner = false; //player vence
-        this.monsterWinner = false;
+        //this.playerWinner = false; //player vence
+        //this.monsterWinner = false;
       }
       
       console.log(this.playerWinner,this.monsterWinner)
@@ -76,6 +99,7 @@ new Vue({
         this.$refs.logs.style.display = 'block';
         this.$refs.logs.firstElementChild.innerHTML = logPlayer + this.$refs.logs.firstElementChild.innerHTML;
     },
+
     btnSpecialAttack(){
       const monsterSpecialAttack = getRandomInt(30);
       const playerSpecialAttack = getRandomInt(15);
@@ -93,16 +117,16 @@ new Vue({
 
         if(this.playerLife <= 0 && this.monsterLife >= 0){
           this.monsterScore++;
-          this.monsterWinner = true;
+         //this.monsterWinner = true;
         }
   
         if(this.monsterLife <= 0 && this.playerLife >= 0){
           this.playerScore++;
-          this.playerWinner = true;
+          //this.playerWinner = true;
         }
   
         if(this.monsterLife <= 0 || this.playerLife <= 0){
-          this.actionsVisible = false;
+          this.runningGame = false;
           this.resultVisible = true;
           this.playerLife = this.playerLife <= 0 ? 0 : this.playerLife;
           this.monsterLife = this.monsterLife <= 0 ? 0 : this.monsterLife; 
@@ -112,8 +136,8 @@ new Vue({
           this.ko = true;
           this.monsterScore++;
           this.playerScore++;
-          this.playerWinner = false; //player vence
-          this.monsterWinner = false;
+          // this.playerWinner = false; //player vence
+          // this.monsterWinner = false;
         }
 
 
@@ -166,23 +190,19 @@ new Vue({
       } 
     },
     resetGame() {
-      this.actionsVisible = !this.actionsVisible, 
+      this.runningGame = !this.runningGame, 
       this.playerLife = 100, 
       this.monsterLife = 100, 
       this.resultVisible = false,
       this.cure = 3,
       this.attack = 3;
       this.$refs.logs.style.display = "none"
-      this.$refs.logs.firstElementChild.innerHTML = "",
-      this.playerWinner = false; //player vence
-      this.monsterWinner = false;
+      this.$refs.logs.firstElementChild.innerHTML = ""
+      //this.playerWinner = false; //player vence
+      //this.monsterWinner = false;
     },
   },
   watch: {
     
   }
 });
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}

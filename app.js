@@ -38,10 +38,10 @@ new Vue({
       const monsterAttack = getRandomInt(12);
       const playerAttack = getRandomInt(15);
 
-      this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - playerAttack);//
-      this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - monsterAttack);//
-      // this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - 100);//
-      // this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - 98);//
+      this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - playerAttack);
+      this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - monsterAttack);
+      // // this.playerLife =  this.playerLife <= 0 ? 0 : (this.playerLife - 100);//
+      // // this.monsterLife =  this.monsterLife <= 0 ? 0 : (this.monsterLife - 98);//
 
       if(this.playerLife <= 0 && this.monsterLife >= 0){
         this.monsterScore++;
