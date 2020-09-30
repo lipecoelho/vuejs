@@ -51,12 +51,12 @@
         </div>
       </div>
       
-      <div class="card shadow mb-4 result"  v-show="resultVisible">
+      <div class="card shadow mb-4 result"  v-show="hasResult">
         <div class="card-body">
           <div v-if="monsterLife == 0" class="alert alert-success mb-0 weight-bold text-center">
             <strong>Você venceu o MONSTRO!</strong>
           </div>
-          <div v-else-if="playerLife == 0" class="alert alert-danger mb-0 weight-bold text-center">
+          <div v-if="playerLife == 0" class="alert alert-danger mb-0 weight-bold text-center">
             <strong>Você perdeu para o MONSTRO!</strong>
           </div>
           <div v-show="ko" class="alert alert-info mb-0 weight-bold text-center">

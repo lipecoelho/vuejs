@@ -30,6 +30,7 @@ new Vue({
         backgroundColor: this.playerLife > 25  ? 'green' : 'red'
       }
     },
+    
     progressMonster() {
       return {
         width: this.monsterLife < 0 ? 0 : this.monsterLife + '%',
@@ -48,9 +49,14 @@ new Vue({
       this.$refs.logs.style.display = "none"
       this.$refs.logs.firstElementChild.innerHTML = ""
     },
-
     attacking(special){
-      console.log(special, this.getRandomInt(5,10));
+      this.hurt('playerLife', 9, 15, false);
+      this.hurt('monsterLife', 7, 12, special);
+    },
+    hurt(prop, min, max, special) {
+      const plus = special ? 5 : 0;
+      const hurt = this.getRandomInt(min + plus, max + plus);
+      this[prop] = Math.max(this[prop] - hurt, 0); // nunca será negativo
     },
     getRandomInt(min, max) {
       const value = Math.random() * (max - min) + min;
@@ -203,6 +209,8 @@ new Vue({
     },
   },
   watch: {
-    
+    hasResult(value) {
+      if(value) this.runningGame = false;
+    }
   }
 });
