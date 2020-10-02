@@ -35,14 +35,14 @@
             <div class="col-6">
               <h3>Jogador</h3>
               <div class="progress">
-                <div class="progress-bar" :style="[progressPlayer]" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" :class="playerLife > 30 ? 'bg-success':'bg-danger'" :style="{width: playerLife + '%'}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
               {{playerLife}}%
             </div>  
             <div class="col-6">
               <h3>Monstro</h3>
               <div class="progress">
-                <div class="progress-bar"  :style="[progressMonster]" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" :class="monsterLife > 30 ? 'bg-success':'bg-danger'" :style="{width: monsterLife + '%'}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
               {{monsterLife}}%
             </div>  
@@ -79,7 +79,7 @@
               ATAQUE ESPECIAL 
               <span class="badge badge-success">{{attack}}</span>
             </button>
-            <button class="btn my-1 w-sm-100 btn-success"  @click="btnCure">
+            <button class="btn my-1 w-sm-100 btn-success">
               <span class="fa fa-medkit"></span>&nbsp;&nbsp;
               CURAR <span class="badge badge-warning">{{cure}}</span>
             </button>
