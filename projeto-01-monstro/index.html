@@ -79,11 +79,11 @@
               ATAQUE ESPECIAL 
               <span class="badge badge-success">{{attack}}</span>
             </button>
-            <button class="btn my-1 w-sm-100 btn-success">
+            <button class="btn my-1 w-sm-100 btn-success" @click="healAndHurt">
               <span class="fa fa-medkit"></span>&nbsp;&nbsp;
               CURAR <span class="badge badge-warning">{{cure}}</span>
             </button>
-            <button class="btn my-1 w-sm-100 btn-secondary"  @click="startGame">
+            <button class="btn my-1 w-sm-100 btn-secondary"  @click="resetGame">
               <span class="fa fa-sign-out"></span>&nbsp;
               DESISTIR
             </button>
