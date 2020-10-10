@@ -16,8 +16,6 @@ new Vue({
   },
   computed: {
     hasResult() {
-      if(this.playerLife == 0){this.monsterScore++ }
-      if(this.monsterLife == 0){this.playerScore++ }
       return this.playerLife == 0 || this.monsterLife == 0;
     }
   },
@@ -76,7 +74,11 @@ new Vue({
   },
   watch: {
     hasResult(value) {
-      if(value) this.runningGame = false;
+      if(value) {
+        this.runningGame = false;
+        if(this.playerLife == 0){this.monsterScore++ }
+        if(this.monsterLife == 0){this.playerScore++ }
+      }
     }
   }
 });
