@@ -10,9 +10,9 @@ new Vue({
     bgProgress: true,
     resultVisible: false,
     activeClass: false,
-    alertDanger: false,
-    alertSuccess: false,
-    msgText: ""
+    msgText: "",
+    cure: 3,
+    attack: 3,
   },
   computed: {
     hasResult() {
@@ -25,13 +25,12 @@ new Vue({
       this.logs = [],
       this.playerLife = 100,
       this.monsterLife = 100.
-      this.resultVisible = false,
+      this.resultVisible = false
       this.cure = 3,
       this.attack = 3;
-      this.$refs.logs.style.display = "none"
-      this.$refs.logs.firstElementChild.innerHTML = ""
     },
-    attacking(special){
+    attacking(special, finish){
+      this.attack--
       this.hurt('monsterLife', 7, 12, special, 'Jogador', 'Monstro', 'alert-danger');
       if(this.monsterLife > 0){
         this.hurt('playerLife', 9, 15, false, 'Monstro', 'Jogador', 'alert-success');
@@ -42,6 +41,7 @@ new Vue({
       const hurt = this.getRandomInt(min + plus, max + plus);
       this[prop] = Math.max(this[prop] - hurt, 0); // nunca será negativo
       this.registerLog(`${source} atingiu ${target} com ${hurt}.`, cls);
+      
     },
     heal(min, max){
       const heal = this.getRandomInt(min, max);
@@ -49,13 +49,16 @@ new Vue({
       this.registerLog(`Jogador ganhou força de ${heal}.`, 'alert-success')
     },
     healAndHurt(){
-      this.heal(10, 15);
-      this.hurt('playerLife', 7, 12, false, 'Monstro', 'Jogador', 'alert-danger');
+      if(this.cure <= 0){
+        alert("SEM CURA!")
+      }else{
+        this.heal(10, 15);
+        this.hurt('playerLife', 7, 12, false, 'Monstro', 'Jogador', 'alert-danger');
+      }
     },
     getRandomInt(min, max) {
-      const value = Math.random() * (max - min) + min;
+      const value = Math.random() * (max - min) + min
       return Math.round(value)
-      //return Math.floor(Math.random() * Math.floor(max));
     },
     resetGame() {
       this.logs = [],
@@ -65,11 +68,16 @@ new Vue({
       this.resultVisible = false,
       this.cure = 3,
       this.attack = 3;
-      this.$refs.logs.style.display = "none"
-      this.$refs.logs.firstElementChild.innerHTML = ""
     },
     registerLog(text, cls) {
       this.logs.unshift({text, cls})
+    },
+    hideMsg(activeClass){
+      if(activeClass){
+        setTimeout(()=>{
+          this.activeClass = false;
+        },4000)
+      }
     }
   },
   watch: {
