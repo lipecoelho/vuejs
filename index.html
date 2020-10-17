@@ -14,7 +14,7 @@
 <body>
   <div class="container pt-3">
     <div id="app">
-      <div class="alert alert-top" :class="{active: activeClass, 'alert-danger' : alertDanger, 'alert-success' : alertSuccess}">
+      <div class="alert alert-top alert-danger" :class="{active: activeClass}">
         {{msgText}}
       </div>
       <div class="card shadow mb-4 scores">
@@ -35,14 +35,14 @@
             <div class="col-6">
               <h3>Jogador</h3>
               <div class="progress">
-                <div class="progress-bar" :style="[progressPlayer]" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" :class="playerLife > 30 ? 'bg-success':'bg-danger'" :style="{width: playerLife + '%'}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
               {{playerLife}}%
             </div>  
             <div class="col-6">
               <h3>Monstro</h3>
               <div class="progress">
-                <div class="progress-bar"  :style="[progressMonster]" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" :class="monsterLife > 30 ? 'bg-success':'bg-danger'" :style="{width: monsterLife + '%'}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
               {{monsterLife}}%
             </div>  
@@ -51,38 +51,50 @@
         </div>
       </div>
       
-      <div class="card shadow mb-4 result"  v-show="resultVisible">
+      <div class="card shadow mb-4 result"  v-show="hasResult">
         <div class="card-body">
-          <div v-show="playerWinner" class="alert alert-success mb-0">
-            Você venceu o MONSTRO!
+          <div v-if="monsterLife == 0" class="alert alert-success mb-0 weight-bold text-center">
+            <strong>Você venceu o MONSTRO!</strong>
           </div>
-          <div v-show="monsterWinner" class="alert alert-danger mb-0">
-            Você perdeu para o MONSTRO!
+          <div v-if="playerLife == 0" class="alert alert-danger mb-0 weight-bold text-center">
+            <strong>Você perdeu para o MONSTRO!</strong>
           </div>
-          <!-- <div v-show="ko" class="alert alert-info mb-0">
-            Empate
-          </div> -->
         </div>
       </div>
       <div class="card shadow mb-4 buttons">
         <div class="card-body text-center">
-          <button class="btn w-sm-100 btn-primary w-100" v-if="!actionsVisible" @click="resetGame">
+          <button class="btn w-sm-100 btn-primary w-100" v-if="!runningGame" @click="startGame">
             <span class="fa fa-play"></span>&nbsp;JOGAR
           </button>
-          <template v-if="actionsVisible">
-            <button class="btn my-1 w-sm-100 btn-danger" @click="btnAttack">
+          <template v-else>
+            <button class="btn my-1 w-sm-100 btn-danger" @click="attacking(false)">
               <span class="fa fa-bomb"></span>&nbsp;
               ATAQUE
             </button>
-            <button class="btn my-1 w-sm-100 btn-warning" @click="btnSpecialAttack">
+            <button v-if="attack > 0" class="btn my-1 w-sm-100 btn-warning" @click="playerLife <= 60 ? attacking(true) : this.alert('Apenas com menos de 60%')">
               <span class="fa fa-magic"></span>&nbsp;
-              ATAQUE ESPECIAL 
+              <template v-if="attack > 0">
+                ATAQUE ESPECIAL 
+              </template>
               <span class="badge badge-success">{{attack}}</span>
             </button>
-            <button class="btn my-1 w-sm-100 btn-success"  @click="btnCure">
-              <span class="fa fa-medkit"></span>&nbsp;&nbsp;
-              CURAR <span class="badge badge-warning">{{cure}}</span>
+            <button v-else class="btn my-1 w-sm-100 btn-secondary" disabled>
+              <span class="fa fa-magic"></span>&nbsp;
+              SEM ATAQUE ESPECIAL 
+              <span class="badge badge-success">{{attack}}</span>
             </button>
+
+            <button v-if="cure > 0" class="btn my-1 w-sm-100 btn-success" @click="playerLife <= 60 ? healAndHurt() : this.alert('Apenas com menos de 60%')">
+              <span class="fa fa-medkit"></span>&nbsp;&nbsp; 
+              CURAR
+              <span class="badge badge-warning">{{cure}}</span>
+            </button>
+            <button v-else class="btn my-1 w-sm-100 btn-secondary"disabled>
+              <span class="fa fa-medkit"></span>&nbsp;&nbsp; 
+              SEM CURA
+              <span class="badge badge-warning">{{cure}}</span>
+            </button>
+
             <button class="btn my-1 w-sm-100 btn-secondary"  @click="resetGame">
               <span class="fa fa-sign-out"></span>&nbsp;
               DESISTIR
@@ -90,8 +102,13 @@
           </template>
         </div>
       </div>
-      <div v-if=logs.length class="card shadow mb-4" ref="logs">
+      <div v-if="logs.length" class="card shadow mb-4" ref="logs">
         <div class="card-body">
+          <div v-for="log in logs">
+            <div class="alert p-1 text-center" :class="log.cls">
+              {{log.text}}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -71,7 +71,7 @@
               <span class="fa fa-bomb"></span>&nbsp;
               ATAQUE
             </button>
-            <button v-if="attack > 0" class="btn my-1 w-sm-100 btn-warning" @click="attacking(true);">
+            <button v-if="attack > 0" class="btn my-1 w-sm-100 btn-warning" @click="playerLife <= 60 ? attacking(true) : this.alert('Apenas com menos de 60%')">
               <span class="fa fa-magic"></span>&nbsp;
               <template v-if="attack > 0">
                 ATAQUE ESPECIAL 
@@ -84,7 +84,7 @@
               <span class="badge badge-success">{{attack}}</span>
             </button>
 
-            <button v-if="cure > 0" class="btn my-1 w-sm-100 btn-success" @click="healAndHurt();">
+            <button v-if="cure > 0" class="btn my-1 w-sm-100 btn-success" @click="playerLife <= 60 ? healAndHurt() : this.alert('Apenas com menos de 60%')">
               <span class="fa fa-medkit"></span>&nbsp;&nbsp; 
               CURAR
               <span class="badge badge-warning">{{cure}}</span>

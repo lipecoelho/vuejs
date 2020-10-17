@@ -52,12 +52,8 @@ new Vue({
     },
     healAndHurt(){
       this.cure--
-      // if(this.cure <= 0){
-      //   alert("SEM CURA!")
-      // }else{
       this.heal(10, 15);
       this.hurt('playerLife', 7, 12, false, 'Monstro', 'Jogador', 'alert-danger');
-      // }
     },
     getRandomInt(min, max) {
       const value = Math.random() * (max - min) + min
