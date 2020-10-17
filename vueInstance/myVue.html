@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vue JS Instance</title>
+	<!-- development version, includes helpful console warnings -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<div id="app">
+			{{name}} {{lastName}} {{1 + 1}}
+		</div>
+	</div>
+	<script>
+		function MyVue(params) {
+			this.$el = document.querySelector(params.el)
+			this.$data = params.data
+			for(let atr in this.$data) {
+				Object.defineProperty(this, atr, {
+					get: ()=> {
+						return this.$data[atr]
+					},
+					set: value => {
+						// Intercept
+						this.$data[atr] = value
+						// Intercept
+					}
+				});
+			}
+
+			const regex = /\{\{([\s\w+]*)\}\}/g
+			this.$el.innerHTML = this.$el.innerHTML.replace(regex, (match, $1) => {
+				const value = this[$1.trim()]
+				return value ? value : eval($1)
+			})
+
+		}
+
+		const vm = new MyVue({
+			el: '#app',
+			data: {
+				name: 'Maria',
+				lastName: 'Silva'
+			}
+		});
+		console.log(vm.name, vm.lastName)
+		vm.name = 'Felipe'
+		vm.lastName = 'Coelho'
+		console.log(vm.name, vm.lastName)
+	</script>
+</body>
+</html>
