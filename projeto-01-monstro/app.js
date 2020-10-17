@@ -29,8 +29,10 @@ new Vue({
       this.cure = 3,
       this.attack = 3;
     },
-    attacking(special, finish){
-      this.attack--
+    attacking(special){
+      if(special){
+        this.attack--
+      }
       this.hurt('monsterLife', 7, 12, special, 'Jogador', 'Monstro', 'alert-danger');
       if(this.monsterLife > 0){
         this.hurt('playerLife', 9, 15, false, 'Monstro', 'Jogador', 'alert-success');
@@ -49,12 +51,13 @@ new Vue({
       this.registerLog(`Jogador ganhou força de ${heal}.`, 'alert-success')
     },
     healAndHurt(){
-      if(this.cure <= 0){
-        alert("SEM CURA!")
-      }else{
-        this.heal(10, 15);
-        this.hurt('playerLife', 7, 12, false, 'Monstro', 'Jogador', 'alert-danger');
-      }
+      this.cure--
+      // if(this.cure <= 0){
+      //   alert("SEM CURA!")
+      // }else{
+      this.heal(10, 15);
+      this.hurt('playerLife', 7, 12, false, 'Monstro', 'Jogador', 'alert-danger');
+      // }
     },
     getRandomInt(min, max) {
       const value = Math.random() * (max - min) + min

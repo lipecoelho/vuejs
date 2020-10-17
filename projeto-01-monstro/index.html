@@ -71,26 +71,30 @@
               <span class="fa fa-bomb"></span>&nbsp;
               ATAQUE
             </button>
-            <button class="btn my-1 w-sm-100 btn-warning" @click="attacking(true);">
+            <button v-if="attack > 0" class="btn my-1 w-sm-100 btn-warning" @click="attacking(true);">
               <span class="fa fa-magic"></span>&nbsp;
               <template v-if="attack > 0">
                 ATAQUE ESPECIAL 
               </template>
-              <template v-else>
-                SEM ATAQUES 
-              </template>
               <span class="badge badge-success">{{attack}}</span>
             </button>
-            <button class="btn my-1 w-sm-100 btn-success" @click="healAndHurt(); cure--">
+            <button v-else class="btn my-1 w-sm-100 btn-secondary" disabled>
+              <span class="fa fa-magic"></span>&nbsp;
+              SEM ATAQUE ESPECIAL 
+              <span class="badge badge-success">{{attack}}</span>
+            </button>
+
+            <button v-if="cure > 0" class="btn my-1 w-sm-100 btn-success" @click="healAndHurt();">
               <span class="fa fa-medkit"></span>&nbsp;&nbsp; 
-              <template v-if="cure > 0">
-                CURAR
-              </template>
-              <template v-else>
-                SEM CURA 
-              </template>
+              CURAR
               <span class="badge badge-warning">{{cure}}</span>
             </button>
+            <button v-else class="btn my-1 w-sm-100 btn-secondary"disabled>
+              <span class="fa fa-medkit"></span>&nbsp;&nbsp; 
+              SEM CURA
+              <span class="badge badge-warning">{{cure}}</span>
+            </button>
+
             <button class="btn my-1 w-sm-100 btn-secondary"  @click="resetGame">
               <span class="fa fa-sign-out"></span>&nbsp;
               DESISTIR
