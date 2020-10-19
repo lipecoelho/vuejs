@@ -12,28 +12,39 @@
 </head>
 <body>
 	<div class="container">
-		<comp>
-			<h1 ref="aulaRef">{{aula}}</h1>
-			<h2>{{modulo}}</h2>
-			<button @click='alterar'>Alterar</button>
-			<button @click='alterarModulo'>Alterar Módulo</button>
-		</comp>	
+		<div id="app">
+			<comp></comp>	
+			<comp></comp>	
+			<comp></comp>	
+		</div>	
 	</div>
 	<script>
-		const vm = new Vue({
-			el:	"comp",
-			data: {
-				aula: 'Aula: Montando Instância Vue',
-				modulo: 'Módulo: Intância Vue'
+		Vue.component('comp', {
+			template: `
+					<div>
+						<h1>{{aula}}</h1>
+						<h2>{{modulo}}</h2>
+						<button @click='alterar'>Alterar</button>
+						<button @click='alterarModulo'>Alterar Módulo</button>
+					</div>
+			`,
+			data: function() {
+				return {
+					aula: 'Aula: Montando Instância Vue',
+					modulo: 'Módulo: Intância Vue'
+				}
 			},
 			methods: {
 				alterar() {
-					vm.aula += '#'
+					this.aula += '#'
 				},
 				alterarModulo() {
-					vm.modulo += '#'
+					this.modulo += '#'
 				}
 			}
+		});
+		new Vue({
+			el:	"#app"
 		});
 	</script>
 </body>
