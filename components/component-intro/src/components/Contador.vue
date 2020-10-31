@@ -1,8 +1,8 @@
 <template>
 	<div id="contador">	
 		<div>{{contador}}</div>
-		<button @click="contador++">+</button>
-		<button @click="contador--">-</button>
+		<v-btn depressed color="primary" @click="contador++">+</v-btn>
+		<v-btn depressed color="error" @click="contador--">-</v-btn>
 	</div>
 </template>
 <script>
