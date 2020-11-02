@@ -1,19 +1,13 @@
 <template>
   <div>
     <img alt="Vue logo" src="./assets/logo.png">
-    <Contador msg="Welcome to Your Vue.js App"/>
+    <Contadores />
+    
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 
-// export default {
-//   name: 'App',
-//   components: {
-//     HelloWorld
-//   }
-// }
 </script>
 
 <style>
@@ -26,3 +20,4 @@
   margin-top: 60px;
 }
 </style>
+

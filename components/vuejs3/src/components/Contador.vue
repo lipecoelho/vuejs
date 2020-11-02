@@ -14,3 +14,7 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+button {background: blue}
+</style>
