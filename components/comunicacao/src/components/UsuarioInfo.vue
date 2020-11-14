@@ -5,6 +5,8 @@
         <p>
             Nome do usuário: {{invert()}}
         </p>
+        <button @click="restartName">Reiniciar nome</button> 
+        <button @click="reiniciarFn">Reiniciar nome (callback)</button>
     </div>
 </template>
 
@@ -13,14 +15,25 @@ export default {
     props: {
         nome: {
             type: String, 
-            default: function() {
-                return "Alô"
-            }
-        }
+            default: "Anônimo"
+            //required: true,
+            // default: function() {
+            //     return Array(10).fill(0).join(',') //"Pedro"
+            // }
+        },
+        reiniciarFn: Function
     },
     methods: {
         invert() {
             return this.nome.split('').reverse().join('');
+        },
+        restartName() {
+            const oldName = this.nome
+            this.nome = "Pedro";
+            this.$emit('nameRestarted', {
+                newName: this.nome,
+                oldName
+            })
         }
     }
 }
