@@ -5,12 +5,14 @@
         <p>
             Nome do usuário: {{invert()}}
         </p>
+        <p>Idade do usuário: {{idade}}</p>
         <button @click="restartName">Reiniciar nome</button> 
         <button @click="reiniciarFn">Reiniciar nome (callback)</button>
     </div>
 </template>
 
 <script>
+import barramento from '@/barramento';
 export default {
     props: {
         nome: {
@@ -21,7 +23,8 @@ export default {
             //     return Array(10).fill(0).join(',') //"Pedro"
             // }
         },
-        reiniciarFn: Function
+        reiniciarFn: Function,
+        idade: Number
     },
     methods: {
         invert() {
@@ -29,12 +32,17 @@ export default {
         },
         restartName() {
             const oldName = this.nome
-            this.nome = "Pedro";
+            this.nome = "Felipe";
             this.$emit('nameRestarted', {
                 newName: this.nome,
                 oldName
             })
         }
+    },
+    created() {
+        barramento.quandoIdadeMudar(idade => {
+            this.idade = idade
+        })
     }
 }
 </script>
