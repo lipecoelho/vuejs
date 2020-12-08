@@ -1,12 +1,31 @@
 <template>
 	<div id="app">
+
+		<div class="w-100 text-center">
+			<button class="btn btn-primary" @click="componenteColor = 'componenteColorAzul'">AZUL</button>
+			<button class="btn btn-danger" @click="componenteColor = 'componenteColorRed'">RED</button>
+			<button class="btn btn-success" @click="componenteColor = 'componenteColorGreen'">Green</button>
+			<div>
+				<keep-alive>
+					<component :is="componenteColor">
+						O componente é o: {{componenteColor}}
+					</component>
+				</keep-alive>	
+			</div>
+		</div>
+
+		
+		<br />
 		<button @click="componente = 'Citacoes'">
 			Citações
 		</button>
 		<button @click="componente = 'Sobre'">
 			Sobre
 		</button>
-		<component :is="componente" />
+		
+		<keep-alive>
+			<component :is="componente" />
+		</keep-alive>	
 		<!-- <Citacoes />
 		<Sobre /> -->
 	</div>
@@ -15,12 +34,16 @@
 <script>
 import Citacoes from './components/Citacoes'
 import Sobre from './components/Sobre'
+import componenteColorAzul from './components/componenteColorAzul'
+import componenteColorRed from './components/componenteColorRed'
+import componenteColorGreen from './components/componenteColorGreen'
 
 export default {
-	components: { Citacoes, Sobre },
+	components: { Citacoes, Sobre, componenteColorAzul, componenteColorRed, componenteColorGreen },
 	data() {
 		return {
-			componente: 'Citacoes'
+			componente: 'Citacoes',
+			componenteColor: 'componenteColorAzul'
 		}
 	}
 }
