@@ -1,11 +1,7 @@
 <template>
 <div :class="[{root: true, sidebarClose, sidebarStatic}, 'sing-dashboard']">
   <Sidebar />
-<<<<<<< HEAD
   <Helper />
-=======
-  <!-- <Helper /> -->
->>>>>>> c11767bc176b6c1e3ffa6e27ed7434ebf25f8e61
   <div class="wrap">
     <Header />
     <v-touch class="content" @swipe="handleSwipe" :swipe-options="{direction: 'horizontal'}">
@@ -27,11 +23,7 @@ const { mapState, mapActions } = createNamespacedHelpers('layout');
 
 import Sidebar from '@/components/Sidebar/Sidebar';
 import Header from '@/components/Header/Header';
-<<<<<<< HEAD
 import Helper from '@/components/Helper/Helper';
-=======
-//import Helper from '@/components/Helper/Helper';
->>>>>>> c11767bc176b6c1e3ffa6e27ed7434ebf25f8e61
 import BreadcrumbHistory from '@/components/BreadcrumbHistory/BreadcrumbHistory';
 
 import './Layout.scss';
